@@ -1,0 +1,20 @@
+	<gml:featureMember> <!--...--> 
+		<BMAWMS:hotel fid="hotel.1"> 
+			<BMAWMS:the_geom>
+				<gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#32647">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">666518.58117943,1520749.01742178
+					</gml:coordinates>
+				</gml:Point>
+			</BMAWMS:the_geom>
+			<BMAWMS:id_hotel>01</BMAWMS:id_hotel>
+			<BMAWMS:name>อมารีวอเตอร์เกท</BMAWMS:name>
+			<BMAWMS:dcode>1037</BMAWMS:dcode>
+			<BMAWMS:address>847 ถ.เพชรบุรีตัดใหม่ พญาไท ราชเทวี กรุงเทพฯ 10400</BMAWMS:address>
+			<BMAWMS:tel>0 26539000</BMAWMS:tel>
+			<BMAWMS:fax>026539045</BMAWMS:fax>
+			<BMAWMS:url>www.amari.com</BMAWMS:url>
+			<BMAWMS:room>569</BMAWMS:room>
+			<BMAWMS:grade>1</BMAWMS:grade>
+		</BMAWMS:hotel>
+	</gml:featureMember>
