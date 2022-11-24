@@ -66,6 +66,6 @@ let obj = [{
 
 let sum =0;
 for ( i=0; i<obj.length; i++){
-        sum += obj[i].salary*12;
+        sum = obj[i].salary*12;
         console.log(obj[i].name,sum);
     }
