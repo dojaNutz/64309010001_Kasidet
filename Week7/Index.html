@@ -9,14 +9,31 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
   <body>
+    <div class="container" id="display">
+
+    </div>
       <script>
         let xhttp = new XMLHttpRequest();
         xhttp.open("GET",'http://localhost:3000/book');
         xhttp.send();
-        xhttp.onload() = function(){
-          console.log(this.responseText);
+        xhttp.onload = function(){
           let obj = JSON.parse(this.responseText);
-          console.log(obj);
+          let temp = '';
+          for (i=0; i<obj.length;i++){
+            temp += 
+            '<tr>'+
+            '<td><p class = text-warning>'+obj[i].id+'<p></td>'+
+            '<td><img src = "./img/' + obj[i].picture + ' "width="120"/></td>'+
+            '<td><b class=text-warning>'+ obj[i].title+'</b>'+
+            '<br><p>คำอธิบาย :'+obj[i].description+'</p></br>'+
+            '<p class=text-white-50>ผู้แต่ง :'+obj[i].author+''+
+            '<br>ปีที่แต่ง:'+obj[i].year+'</br>'+
+            'ราคา:'+obj[i].price+'</br></p></td></td></tr>'
+            
+          }
+
+          document.getElementById('display').innerHTML='<table class ="table table-striped table-dark">'+temp+'</table>'
+          
         }
       </script>
    
