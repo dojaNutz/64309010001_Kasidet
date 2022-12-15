@@ -8,19 +8,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
-  <body>
-    <div class="container" id="display">
-
+  <body onload="getAjax()">
+    <div class="container" id="display"></div>
+    <button class ="btn" onclick="prev()">ย้อนกลับ</button>
+    <button class ="btn" onclick="next()" >ถัดไป</button>
+  
     </div>
       <script>
         let xhttp = new XMLHttpRequest();
+        let i = 0;
+        function getAjax(){
         xhttp.open("GET",'http://localhost:3000/book');
         xhttp.send();
         xhttp.onload = function(){
           let obj = JSON.parse(this.responseText);
           let temp = '';
-          for (i=0; i<obj.length;i++){
-            temp += 
+          temp = 
             '<tr>'+
             '<td><p class = text-warning>'+obj[i].id+'<p></td>'+
             '<td><img src = "./img/' + obj[i].picture + ' "width="120"/></td>'+
@@ -30,10 +33,20 @@
             '<br>ปีที่แต่ง:'+obj[i].year+'</br>'+
             'ราคา:'+obj[i].price+'</br></p></td></td></tr>'
             
-          }
-
-          document.getElementById('display').innerHTML='<table class ="table table-striped table-dark">'+temp+'</table>'
           
+
+          document.getElementById('display').innerHTML='<table class ="table table-striped table-dark" >'+temp+'</table>'
+          
+        }} 
+        function next(){
+          console.log(i);
+          i++;
+          getAjax();
+        }
+        function pre(){
+          console.log(i);
+          i--;
+          getAjax();
         }
       </script>
    
