@@ -1,41 +1,115 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>HongKhang2</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
-  <body>
-    <div class="container" id="display">
 
-    </div>
-      <script>
-        let xhttp = new XMLHttpRequest();
-        xhttp.open("GET",'http://localhost:3000/movieReview');
-        xhttp.send();
-        xhttp.onload = function(){
-          let obj = JSON.parse(this.responseText);
-          let temp = '';
-          for (i=0; i<obj.length;i++){
-            console.log(obj[i])
-            temp += 
-            '<tr>'+
-            '<td>'+obj[i].movieName+'</td>'+
-            '<td><img src ="'  + obj[i].picture + ' "width="120"/></td>'+
-            '<td><b class=text-warning>'+ obj[i].title+'</b>'+
-            '<br><p>&nbsp;'+obj[i].content+'</p></br>'+
-            '<p class=text-white-50>ผู้เขียน :'+obj[i].author+''+'</td></td></tr>'
-            
-          }
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-          document.getElementById('display').innerHTML='<table class ="table table-striped table-dark">'+temp+'</table>'
-          
-        }
-      </script>
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <style>
+@font-face {
+  font-family: 'Noto Sans Thai', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap');
+}
+body{
+  font-family: 'Noto Sans Thai', sans-serif;
+
+}
+.card-text{
+  line-height: 2;
+}
+.card-title{
+  font-weight: bold;
+}
+/*#text-review::first-letter {
+ font-size: xx-large;
+}*/
+#display{
+  padding-top:1em;
+  height: fit-content;
+
+}
+</style>
+</head>
+
+<body onload="GetAjax()">
+<div class="container" id="display"></div>
+<center><div class="container">
+  <button id="prvbtn" class="btn btn-outline-danger" onclick="prv()">ก่อนหน้า</button>
+  <button id="nxtbtn" class="btn btn-outline-success " onclick="next()">ถัดไป</button>
+
+</div>
+</center>
+<script>
+    document.getElementById("prvbtn").disabled = true;
+    let xttp = new XMLHttpRequest();
+    let i = 0;
+    let obj;
+    function GetAjax(){
+    xttp.open("GET","http://localhost:3000/movieReview",true);
+    xttp.send();
+    xttp.onload = function(){
+        obj = JSON.parse(this.responseText);
+        let trailer_video = obj[i].trailer;
+    let result = trailer_video.substring(32);
+        let temp = '';
+          temp = 
+          '<div class="row no-gutters"><div class="col-md-4">'+
+          '<img class="img-fluid rounded-start" src="' + obj[i].picture + '"></img></div><div class="col-md-8">'+
+          '<div class="card-body"><table><thead>'+
+          '<tr><th colspan="3"><center><h2 class="card-title">'+obj[i].movieName+'</h2></center></th></tr></thead>'+
+          '<tr><th><i class="fa-regular fa-clock"></i> ความยาวหนัง : '+obj[i].movieLength+' นาที &nbsp</th>'+
+          '<th><i class="bi bi-camera-reels-fill"></i> ผู้กำกับ : '+obj[i].director+'</th>'+
+          '<th><i class="fas fa-photo-video"></i> หมวดหมู่หนัง : '+obj[i].category+'</th></tr></table>'+
+          '<p class="card-text" id="text-review"><br>'+obj[i].review.review+'</br></p>'+
+          '<center><iframe width="560" height="315" src="https://www.youtube.com/embed/'+result+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>'+
+          '<p class="card-text"><small class="text-muted">Article by Trash!</small></p>'+
+          '<table class="table table-bordered"><thead>'+
+          '<tr><th>บทหนัง : <span style="color: #0015a2;">'+obj[i].review.score.screenPlay+'</span></th>'+
+          '<th>การดำเนินเรื่อง : <span style="color: #0015a2;">'+obj[i].review.score.playing+'</span></th>'+
+          '<th>ดนตรีประกอบ : <span style="color: #0015a2;">'+obj[i].review.score.music+'</span></th>'+
+          '<th>ฝีมือนักแสดง : <span style="color: #0015a2;">'+obj[i].review.score.actorSkills+'</span></th>'+
+          '<th>กราฟิก : <span style="color: #0015a2;">'+obj[i].review.score.graphics+'</span></th>'+
+          '<th>คะแนนเฉลี่ย : <span style="color: #4d37ff;">'+obj[i].review.score.average+'</span></th></tr></table>';
+        document.getElementById('display').innerHTML  = '<div class="card mb-3" style="max-width: 100%;">'+temp+'</div>'  
+
+
+}
+    }
    
-    
-  </body>
+function next(){
+  i++;
+  if (i == obj.length) {
+    document.getElementById('nxtbtn').disabled = true;
+  }
+  document.getElementById('prvbtn').disabled = false;
+  GetAjax();
+ }
+ function prv(){
+  i--;
+  if (i == 0) {
+    document.getElementById('prvbtn').disabled = true;
+  }
+  document.getElementById('nxtbtn').disabled = false;
+  GetAjax();
+ }
+</script>
+  <!-- Bootstrap JavaScript Libraries -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
 </html>
