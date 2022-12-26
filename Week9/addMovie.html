@@ -20,6 +20,7 @@
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
         </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap');
         .card {
             background-color: #FAF0CB;
             color: #E14C38;
@@ -27,15 +28,21 @@
         }
 
         label {
-            font-weight: 500;
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .btnSubmit {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-weight: 500;
             color: white;
             background-color: #468990;
             border: 0px solid;
             border-radius: 8px;
             margin-top: 2em;
+            width: 80px;
+            height: auto;
             
         }
 
@@ -46,13 +53,19 @@
         }
 
         .container {
-            margin: auto auto;
-            width: 80%;
+            margin: 2em auto;
+            width: 50%;
+            
 
         }
-        .h1{
+        h1{
+            font-family: 'Noto Sans Thai', sans-serif;
             font-weight: bold;
             text-align: center;
+        }
+        .form-control{
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 5px;
         }
     </style>
 </head>
@@ -62,31 +75,31 @@
         <div class="card" style="margin-top: 1em;">
             <div class="card-body">
                 <form id="myForm">
-                    <h1>Add movie</h1>
+                    <h1><center>Add Movie</center></h1>
                     <div class="row">
                         <div class="col-9">
                             <label>Movie Name</label>
-                            <input type="text" class="form-control" id="movieName">
+                            <input type="text" class="form-control" id="movieName" placeholder="ชื่อหนัง">
                         </div>
                         <div class="col-3">
                             <label>Movie Length</label>
-                            <input type="number" class="form-control" id="movieLength">
+                            <input type="number" class="form-control" id="movieLength" placeholder="ความยาว(นาที)" >
                         </div>
                         <div class="col-6">
                             <label>Director</label>
-                            <input type="text" class="form-control" id="director">
+                            <input type="text" class="form-control" id="director" placeholder="ผู้กำกับ" >
                         </div>
                         <div class="col-6">
                             <label>Category</label>
-                            <input type="text" class="form-control" id="category">
+                            <input type="text" class="form-control" id="category" placeholder="หมวดหมู่">
                         </div>
                         <div class="col-6">
                             <label>URL Picture</label>
-                            <input type="text" class="form-control" id="picture">
+                            <input type="text" class="form-control" id="picture" placeholder="ลิงก์รูปภาพ" >
                         </div>
                         <div class="col-6">
                             <label>URL Trailer</label>
-                            <input type="text" class="form-control" id="trailer">
+                            <input type="text" class="form-control" id="trailer" placeholder="ลิงก์ตัวอย่างหนัง">
                         </div>
                         <div class="col-12">
                             <label>Review</label>
@@ -114,7 +127,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <input type="button" value="Submit" class="btnSubmit" onclick="addMovie()">
+                        <center><input type="button" value="Submit" class="btnSubmit" onclick="addMovie()"></center>
                         <div class="col">
                             <!--<input type="button" value="Submit" class="btnSubmit" onclick="addMovie()">-->
                             <script>
