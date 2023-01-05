@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap" rel="stylesheet">
+  
+<style>
+    *{
+        font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    }
+    .movietitle{
+        text-align: center;
+    }
+    .poster{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        width: 500px;
+    }
+    .trailler{
+        width: 50%;
+        height: 50%;
+    }
+
+    .trailler{
+        padding-top: 20px;
+        width: 75%;
+    }
+
+    #test1{
+        text-align: center;
+        padding-top: 20px;
+        padding-right: 30px;
+    }
+    
+    .button{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        
+    }
+
+    #btn123{
+        font-size: 1.25rem;
+        width: 10%;
+        margin-left: 1%;
+    }
+
+    #review{
+        text-align: justify;
+        padding-left: 5%;
+        padding-right: 5%;
+        font-size: 1.5rem;
+    }
+
+    #title_trailler{
+        font-size: 2.3rem;
+    }
+
+    #title_review{
+        font-size: 2.3rem;
+        font-weight: 600;
+    }
+    
+    #testrow .col-2{
+        text-align: center;
+    }
+
+    #text1{
+        background-color: #353535;
+        border-color: #353535;
+        color: white;
+        opacity: 100%;
+        font-size: 0.9rem;
+    }
+
+    #text2{
+        background-color: #F0EE72;
+        border-color: #F0EE72;
+        color: black;
+        opacity: 100%;
+        font-size: 0.9rem;
+    }
+
+    #abc{
+        width: 99%;
+    }
+
+    #posterimg{
+        text-align: center;
+    }
+</style>
+
+  </head>
+  <body onload="getAjax()">
+<div class="content" id="display"></div>
+<script>
+    let xhttp = new XMLHttpRequest();
+    let i = 0;
+       
+    function getAjax(){
+        xhttp.open("GET",'http://localhost:3000/web');
+        xhttp.send();
+        xhttp.onload = function(){
+            let obj = JSON.parse(this.responseText);
+            test = obj.length
+            
+            let temp = '';
+
+            temp += ''
+            +'<div class="row" id="abc">'
+            + '<hr>'
+
+                +   '<div class="col-12">'
+                +   '<h1 class="movietitle">'+obj[i].title+'</h1>'
+                +   '</div>'
+            + '<hr>'
+            +   '<div class="col-12" id="posterimg">'
+                +   '<div class="row">'
+                    +   '<div class="col-12"> <img class="poster" src=' + obj[i].picture + '> </div>'
+                +   '</div>'
+            +   '</div>'
+            +   '<div class="col-12" id="test1">'
+                    + '<hr>'
+                    +'<p id="review">'+obj[i].content+'</p>'
+                +'</div>'
+            +'</div>'+
+            '<br>'+
+            '<div class="button">'+
+            '<button class="btn btn-primary" id="btn123" onclick="prev()">ก่อนหน้า</button>'+
+            '<button class="btn btn-primary" id="btn123" onclick="next()">ถัดไป</button>'+
+            '<a class="btn btn-primary" href="add.html" id="btn123" target="_blank">เพิ่มข้อมูล</a></div>'
+
+            document.getElementById('display').innerHTML = temp
+        }
+    }
+    function next() {
+          i++;
+          if(i > test-1){
+            i=0;
+          }
+          getAjax();
+        }
+
+        function prev() {
+          i--;
+          if(i < 0){
+            i=test-1;
+          }
+          getAjax();
+        }
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
