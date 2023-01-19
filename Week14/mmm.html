@@ -31,21 +31,19 @@
 
             function drawBasic() {
                 var mapData = [];
-                mapData[0] = ['Provinces', 'Total']
-                fetch('https://jirawatchk.github.io/api.json')
+                mapData[0] = ['Map','Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7']
+                fetch('http://localhost:3000/map')
                     .then(res => res.json())
                     .then(data => {
                         console.log(data)
-                        for (i = 1; i = 1; i++) {
-                            mapData[i] = [data[i]['CC-DESC'], parseFloat(data[i]["TOTAL"].replace(/,/g, ''))];
+                        for (i = 1; i < data.length; i++) {
+                            mapData[i] = [data[i]['Map'], data[i]["Day 1"],data[i]["Day 2"],data[i]["Day 3"],data[i]["Day 4"],data[i]["Day 5"],data[i]["Day 6"],data[i]["Day 7"]];
                             console.log(mapData[i]);
                         }
                         var data = google.visualization.arrayToDataTable(mapData);
                         var options = {
-                            region: 'TH',
-                            resolution: 'provinces',
-                            colorAxis: { colors:['#b2dbee','#2c8dc4'] }, displayMode: 'auto', keepAspectRatio: true,
-                            chartArea: {width: '80%'},
+                            colorAxis: { color:['#d3cefc'] }, displayMode: 'auto', keepAspectRatio: true,
+                            chartArea: {width: '50%'},
                             
                         };
                         var chart = new google.visualization.BarChart(document.getElementById('display'));
@@ -71,3 +69,4 @@
     </script>
 
 </html>
+<!--ทำกับ กษิดิ์เดช สุภะ, กษิดิ์เดช สุภะ รุ่นที่1, กษิดิ์เดช สุภะ รุ่นที่2, กษิดิ์เดช สุภะ รุ่นที่3, กษิดิ์เดช สุภะ จูเนียร์-->
