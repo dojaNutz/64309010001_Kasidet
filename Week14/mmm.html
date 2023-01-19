@@ -25,19 +25,19 @@
 
             google.charts.load('current', {
 
-                'packages': ['geochart'],
+                'packages': ['corechart', 'bar'],
             });
-            google.charts.setOnLoadCallback(drawMap);
+            google.charts.setOnLoadCallback(drawBasic);
 
-            function drawMap() {
+            function drawBasic() {
                 var mapData = [];
-                mapData[0] = ['Map', 'Total']
+                mapData[0] = ['Provinces', 'Total']
                 fetch('http://localhost:3000/veto')
                     .then(res => res.json())
                     .then(data => {
                         console.log(data)
-                        for (i = 1; i < 6; i++) {
-                            mapData[i] = [data[i]['Map'], data[i]['Total']];
+                        for (i = 1; i < 4; i++) {
+                            mapData[i] = [data[i]['CC-DESC'], parseFloat(data[i]["TOTAL"].replace(/,/g, ''))];
                             console.log(mapData[i]);
                         }
                         var data = google.visualization.arrayToDataTable(mapData);
@@ -45,9 +45,10 @@
                             region: 'TH',
                             resolution: 'provinces',
                             colorAxis: { colors:['#b2dbee','#2c8dc4'] }, displayMode: 'auto', keepAspectRatio: true,
+                            chartArea: {width: '80%'},
                             
                         };
-                        var chart = new google.visualization.GeoChart(document.getElementById('display'));
+                        var chart = new google.visualization.BarChart(document.getElementById('display'));
                         chart.draw(data, options);
                     });
 
